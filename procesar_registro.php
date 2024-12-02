@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $contraseñaHash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, apellido, correo, contraseña) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tabla_de_usuarios (nombre, apellido, correo, contraseña) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $nombre, $apellido, $correo, $contraseñaHash);
 
     if ($stmt->execute()) {

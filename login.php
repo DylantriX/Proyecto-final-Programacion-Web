@@ -12,11 +12,11 @@
         <form id="formLogin" action="procesar_login.php" method="POST">
             <div class="mb-3">
                 <label for="correo" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="correo" name="correo" required>
+                <input type="correo" class="form-control" id="correo" name="correo" required>
             </div>
             <div class="mb-3">
                 <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                <input type="contraseña" class="form-control" id="contraseña" name="contraseña" required>
             </div>
             <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </form>

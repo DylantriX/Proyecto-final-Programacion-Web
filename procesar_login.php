@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Correo electrónico no válido.");
     }
 
-    $stmt = $conn->prepare("SELECT id, nombre, apellido, contraseña FROM usuarios WHERE correo = ?");
+    $stmt = $conn->prepare("SELECT id, nombre, apellido, contraseña FROM tabla_usuarios WHERE correo = ?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $result = $stmt->get_result();
