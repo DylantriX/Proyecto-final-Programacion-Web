@@ -8,6 +8,13 @@
 </head>
 <body>
     <div class="container mt-5">
+        <?php
+            session_start();
+            if(isset($_SESSION['error'])){
+                echo '<div class="alert alert-danger">'. $_SESSION['error'] . '</div>';
+
+            }
+        ?>
         <h2>Iniciar Sesión</h2>
         <form id="formLogin" action="procesar_login.php" method="POST">
             <div class="mb-3">

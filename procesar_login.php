@@ -7,7 +7,6 @@ $error = ''; // Variable para almacenar mensajes de error
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL);
     $contraseña = $_POST['contraseña'];
-
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $error = "Correo electrónico no válido.";
     } else {
@@ -15,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("s", $correo);
         $stmt->execute();
         $result = $stmt->get_result();
-
+        
         if ($result->num_rows === 1) {
             $usuario = $result->fetch_assoc();
-
+            
             if (password_verify($contraseña, $usuario['contraseña'])) {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['nombre'] = $usuario['nombre'];
@@ -32,10 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: bienvenida.php");
                 exit; // Detener la ejecución después de redirigir
             } else {
-                $error = "Contraseña incorrecta.";
+                $_SESSION['error'] = "Contraseña incorrecta.";
+                header("Location: login.php");
+                exit; // Detener la ejecución después de redirigir
             }
         } else {
-            $error = "Correo electrónico no encontrado.";
+            $_SESSION['error'] = "Correo electrónico no encontrado.";
+            header("Location: index.php");
+            exit; // Detener la ejecución después de redirigir
         }
     }
 }

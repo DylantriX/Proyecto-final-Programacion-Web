@@ -15,7 +15,7 @@ session_start();
     <div class="container mt-5">
         <h2>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] . ' ' . $_SESSION['apellido']); ?>!</h2>
         <div class="mt-4">
-            <a href="crear_producto.php" class="btn btn-primary">Crear Producto</a>
+            <a href="api.php" class="btn btn-primary">Crear Producto</a>
             <a href="cerrar_sesion.php" class="btn btn-danger">Cerrar Sesión</a>
         </div>
 
