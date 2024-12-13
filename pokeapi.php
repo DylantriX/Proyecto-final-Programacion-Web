@@ -25,8 +25,8 @@ function obtenerPokemon($nombrePokemon) {
     return json_decode($respuesta, true);
 }
 
-// Obtener datos de "Ditto" como ejemplo
-$pokemon = obtenerPokemon("pikachu");
+
+$pokemon = obtenerPokemon("ditto");
 $pokemonHtml = "";
 
 // Generar el contenido HTML basado en la existencia del Pokémon

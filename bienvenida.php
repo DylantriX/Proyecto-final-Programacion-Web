@@ -70,12 +70,12 @@ if (!isset($_SESSION['nombre'])) {
                     <tr>
                         <td><img src="img/Ancor.jpg" alt="Desarrollador 1" class="img-fluid rounded" style="width: 100px;"></td>
                         <td>Ancor Gonzalez</td>
-                        <td>Desarrollador Backend</td>
+                        <td>Desarrollador de pagina inicio y registro</td>
                     </tr>
                     <tr>
                         <td><img src="img/Dylan.jpg" alt="Desarrollador 2" class="img-fluid rounded" style="width: 100px;"></td>
                         <td>Dylan Hernandez</td>
-                        <td>Desarrolladora Frontend</td>
+                        <td>Desarrollador de la pagina de Bienvenida</td>
                     </tr>
                 </tbody>
             </table>
