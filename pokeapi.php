@@ -7,7 +7,7 @@ if (!isset($_SESSION['nombre'])) {
 
 // Función para obtener datos del Pokémon desde la API
 function obtenerPokemon($nombrePokemon) {
-    $url = "https://pokeapi.co/api/v2/pokemon/" . $nombrePokemon;
+    $url = "https://pokeapi.co/api/v2/pokemon/" . strtolower(trim($nombrePokemon));
     
     // Inicializar cURL
     $ch = curl_init();
@@ -25,36 +25,39 @@ function obtenerPokemon($nombrePokemon) {
     return json_decode($respuesta, true);
 }
 
-
-$pokemon = obtenerPokemon("ditto");
+// Verificar si se envió el nombre del Pokémon
 $pokemonHtml = "";
+if (isset($_GET['nombrePokemon']) && !empty($_GET['nombrePokemon'])) {
+    $nombrePokemon = $_GET['nombrePokemon'];
+    $pokemon = obtenerPokemon($nombrePokemon);
 
-// Generar el contenido HTML basado en la existencia del Pokémon
-if ($pokemon) {
-    $habilidades = "";
-    foreach ($pokemon['abilities'] as $ability) {
-        $habilidades .= "<li>" . ucfirst($ability['ability']['name']) . "</li>";
-    }
+    // Generar el contenido HTML basado en la existencia del Pokémon
+    if ($pokemon) {
+        $habilidades = "";
+        foreach ($pokemon['abilities'] as $ability) {
+            $habilidades .= "<li>" . ucfirst($ability['ability']['name']) . "</li>";
+        }
 
-    $pokemonHtml = "
-        <div class='card shadow-sm p-4'>
-            <div class='row'>
-                <div class='col-md-4 text-center'>
-                    <img src='{$pokemon['sprites']['front_default']}' alt='Imagen de " . ucfirst($pokemon['name']) . "' class='img-fluid rounded'>
-                </div>
-                <div class='col-md-8'>
-                    <h2 class='text-secondary'>Nombre: " . ucfirst($pokemon['name']) . "</h2>
-                    <p><strong>ID:</strong> {$pokemon['id']}</p>
-                    <p><strong>Altura:</strong> {$pokemon['height']} decímetros</p>
-                    <p><strong>Peso:</strong> {$pokemon['weight']} hectogramos</p>
-                    <p><strong>Habilidades:</strong></p>
-                    <ul>{$habilidades}</ul>
+        $pokemonHtml = "
+            <div class='card shadow-sm p-4'>
+                <div class='row'>
+                    <div class='col-md-4 text-center'>
+                        <img src='{$pokemon['sprites']['front_default']}' alt='Imagen de " . ucfirst($pokemon['name']) . "' class='img-fluid rounded'>
+                    </div>
+                    <div class='col-md-8'>
+                        <h2 class='text-secondary'>Nombre: " . ucfirst($pokemon['name']) . "</h2>
+                        <p><strong>ID:</strong> {$pokemon['id']}</p>
+                        <p><strong>Altura:</strong> {$pokemon['height']} decímetros</p>
+                        <p><strong>Peso:</strong> {$pokemon['weight']} hectogramos</p>
+                        <p><strong>Habilidades:</strong></p>
+                        <ul>{$habilidades}</ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    ";
-} else {
-    $pokemonHtml = "<div class='alert alert-danger'>No se pudo obtener la información del Pokémon.</div>";
+        ";
+    } else {
+        $pokemonHtml = "<div class='alert alert-danger'>No se pudo obtener la información del Pokémon. Verifique el nombre ingresado.</div>";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -84,9 +87,20 @@ if ($pokemon) {
   </div>
 </nav>
 
-<!-- Contenedor principal con la información del Pokémon -->
+<!-- Contenedor principal -->
 <div class="container mt-5">
-    <?php echo $pokemonHtml; ?>
+    <form method="GET" action="">
+        <div class="form-group">
+            <label for="nombrePokemon">Nombre del Pokémon:</label>
+            <input type="text" class="form-control" id="nombrePokemon" name="nombrePokemon" placeholder="Ingresa el nombre del Pokémon">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Mostrar el resultado -->
+    <div class="mt-4">
+        <?php echo $pokemonHtml; ?>
+    </div>
 </div>
 
 <!-- Incluir el script de Bootstrap -->
