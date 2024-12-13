@@ -31,6 +31,7 @@
                 <input type="password" class="form-control" id="confirmar_contraseña" name="confirmar_contraseña" required>
             </div>
             <button type="submit" class="btn btn-primary">Registrarse</button>
+            <a href="login.php" class="btn btn-secondary">Iniciar Sesión</a>
         </form>
     </div>
 
